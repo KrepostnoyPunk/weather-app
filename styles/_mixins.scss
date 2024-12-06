@@ -1,0 +1,39 @@
+// формула расчета адаптирующегося размера текста
+@mixin elastic-text ($min: 20px, $max: 38px) {
+    font-size: clamp(#{$min}px, #{$max / 1440 * 100}vw, #{$max}px);
+}
+
+// сброс стилей кнопки
+@mixin reset-btn {
+    background-color: transparent;
+    border: none;
+    padding: none;
+}
+
+// центрирование через flex
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// задает размер 1 к 1
+@mixin size-1-to-1 ($size){
+    width: $size;
+    height: $size;
+}
+
+// миксин делающий корректным эффект hover на сенсорных устройствах
+@mixin hover {
+    @media (hover:hover) {
+        &:hover{
+            @content;
+        }
+    }
+
+    @media (hover:none) {
+        &:active{
+            @content;
+        }
+    }
+}

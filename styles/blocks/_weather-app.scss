@@ -1,0 +1,38 @@
+.weather-app{
+    @include flex-center;
+
+    &__inner{
+        @include flex-center;
+        column-gap: 100px;
+    }
+
+    &__search-group{
+        @include flex-center;
+        flex-direction: column;
+        row-gap: 30px;
+    }
+
+    &__forecast{
+        @include flex-center;
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+    &__current{
+        align-self: flex-start;
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--light-color);
+    }
+
+    &__today-group{
+        @include flex-center;
+        flex-direction: column;
+        row-gap: 50px;
+    }
+
+    &__today-highlights{
+        @include flex-center;
+        column-gap: 100px;
+    }
+}

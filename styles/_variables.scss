@@ -1,0 +1,38 @@
+:root{
+    // цвета
+    --dark-color: ;
+    --dark-color-alt: ;
+    --accent-color: ;
+    --accent-color-alt: ;
+    --light-color: #f0f0f0;
+    --light-color-alt: ;
+    --bg-color: rgb(25,25,25);
+
+    // радиус рамок
+    --card-border-radius: 16px;
+    --input-border-radius: 12px;
+    --btn-border-radius: 10px;
+    --circle-border-radius: 50%;
+
+    // шрифты
+    --font-main: monospace, sans-serif;
+
+    // тени
+    --box-shadow: 5px 5px 5px 10px black;
+
+    // размеры контейнера
+    --container-width: 1024px;
+    --container-padding-x: 30px;
+
+    // отступы внутри кнопок
+    --btn-padding: 12px;
+
+    // отступы внутри input
+    --input-padding: 0 12px;
+
+    // высоты элементов
+    --input-height: 40px;
+
+    // длительность переходов
+    --transition-duration: .3s;
+}

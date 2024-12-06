@@ -1,0 +1,25 @@
+body{
+    font-family: var(--font-main);
+    font-weight: 600;
+
+    @include elastic-text(18, 26);
+
+    color: var(--light-color);
+    background-color: var(--bg-color);
+
+    background-image: url(/assets/images/bg--rainy--snowy.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include flex-center;
+}
+
+* {
+    transition-duration: var(--transition-duration);
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
