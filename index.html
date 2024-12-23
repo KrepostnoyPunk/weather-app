@@ -6,27 +6,35 @@
     <title>Thunderstrike</title>
     <link rel="icon" href="./assets/icons/label.png">
     <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    
-    <div class="weather-app container">
-        <div class="weather-app__inner">
+    <div class="weather-app ">
+        <div class="weather-app__inner container">
             <div class="weather-app__search-group">
                 <input type="text" id="city" class="weather-app__field">
-                <img src="#" alt="#" class="weather-app__weather-img weather-img">
-
+                <img src="./assets/icons/label.png" 
+                alt="#" class="weather-app__weather-img weather-img"
+                width="200"
+                height="200"
+                >
                 <div class="weather-app__forecast">
-                    <div class="weather-app__current">
-                        <address class="weather-app__location"> /\Tula</address>
-                        <p class="weather-app__temperature">-6</p>
-                        <p class="weather-app__date">Friday, 11:44 AM</p>
+                    <div class="weather-app__current current">
+                        <address class="current__location">
+                             <i class="fa-solid fa-location-arrow"></i> Tula
+                        </address>
+                        <p class="current__temperature">-6 °C</p>
+                        <p class="current__date">Friday, 11:44 AM</p>
                     </div>
-    
+                    <hr>
                     <div class="weather-app__future-forecast future-forecast">
                         <h3 class="future-forecast__title">The Next 4 Days Forecast</h3>
                         <ul class="future-forecast__list">
                             <li class="future-forecast__item">
-                                <img src="#" alt="#" class="future-forecast__img weather-img">
+                                <img src="#" alt="#" class="future-forecast__img weather-img"
+                                width="70"
+                                height="70"
+                                >
                                 <div class="future-forecast__day-data">
                                     <p>Tuesday, June 13</p>
                                     <p>Storm showers</p>
@@ -35,36 +43,63 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
-
             <div class="weather-app__today-group">
-                <div class="weather-app__today-forecast">
-                    <h2 class="weather-app__today-title">Today's Forecast</h2>
-                    <ul class="weather-app__today-list">
-                        <li class="weather-app__today-item">
-                            <p class="weather-app__today-time">9:00</p>
-                            <img src="#" alt="#" class="weather-app__today-img weather-img">
-                            <p class="weather-app__today-temperature">20 °C</p>
+                <div class="weather-app__today-forecast today-forecast">
+                    <h2 class="today-forecast__title part__title">Today's Forecast</h2>
+                    <ul class="today-forecast__list">
+                        <li class="today-forecast__item">
+                            <p class="today-forecast__time">9:00</p>
+                            <img src="#" alt="#" class="today-forecast__img weather-img"
+                            >
+                            <p class="today-forecast__temperature">20 °C</p>
+                        </li>
+                        <li class="today-forecast__item">
+                            <p class="today-forecast__time">9:00</p>
+                            <img src="#" alt="#" class="today-forecast__img weather-img">
+                            <p class="today-forecast__temperature">20 °C</p>
+                        </li>
+                        <li class="today-forecast__item">
+                            <p class="today-forecast__time">9:00</p>
+                            <img src="#" alt="#" class="today-forecast__img weather-img">
+                            <p class="today-forecast__temperature">20 °C</p>
+                        </li>
+                        <li class="today-forecast__item">
+                            <p class="today-forecast__time">9:00</p>
+                            <img src="#" alt="#" class="today-forecast__img weather-img">
+                            <p class="today-forecast__temperature">20 °C</p>
+                        </li>
+                        <li class="today-forecast__item">
+                            <p class="today-forecast__time">9:00</p>
+                            <img src="#" alt="#" class="today-forecast__img weather-img">
+                            <p class="today-forecast__temperature">20 °C</p>
+                        </li>
+                        <li class="today-forecast__item">
+                            <p class="today-forecast__time">9:00</p>
+                            <img src="#" alt="#" class="today-forecast__img weather-img">
+                            <p class="today-forecast__temperature">20 °C</p>
                         </li>
                     </ul>
                 </div>
-
-                <h2 class="weather-app__today-title">Today's Highlights</h2>
-                <div class="weather-app__today-highlights">
-                    <div>
-                        <p>UV Index - 0 (Low)</p>
-                        <P>Wind Speed - 7 Km/h</P>
-                        <P>Sunrise - 5:18 AM</P>
-                        <P>Sunset - 18:44 PM</P>
-                    </div>
-
-                    <div>
-                        <p>Humidity - 61.4%</p>
-                        <p>Visibility - 7 (Very 
-                        light mist)</p>
-                        <p>Air Quality - 90</p>
-                    </div>
+                <div class="weather-app__today-highlights today-highlights">
+                    <h2 class="today-highlights__title part__title">Today's Highlights</h2>
+                    <ul class="today-highlights__additional-data additional-data">
+                        <li>
+                            <ul class="additional-data__list">
+                                <li class="additional-data__item">UV Index - 0 (Low)</li>
+                                <li class="additional-data__item">Wind Speed - 7 Km/h</li>
+                                <li class="additional-data__item">Sunrise - 5:18 AM</li>
+                                <li class="additional-data__item">Sunset - 18:44 PM</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="additional-data__list">
+                                <li class="additional-data__item">Humidity - 61.4%</li>
+                                <li class="additional-data__item">Visibility - 7 (Very light mist)</li>
+                                <li class="additional-data__item">Air Quality - 90</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

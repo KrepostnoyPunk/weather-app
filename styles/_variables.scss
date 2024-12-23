@@ -1,12 +1,13 @@
 :root{
     // цвета
-    --dark-color: ;
+    --dark-color: rgb(25, 25, 25);;
     --dark-color-alt: ;
     --accent-color: ;
     --accent-color-alt: ;
     --light-color: #f0f0f0;
     --light-color-alt: ;
     --bg-color: rgb(25,25,25);
+    --blur-bg-color: rgba(255, 255, 255, 0.05);
 
     // радиус рамок
     --card-border-radius: 16px;
@@ -14,15 +15,21 @@
     --btn-border-radius: 10px;
     --circle-border-radius: 50%;
 
+    // borders
+    --border-heavy: 6px solid var(--light-color);
+    --border-medium: 3px solid var(--light-color);
+    --border-light: 1px solid var(--light-color);
+
     // шрифты
     --font-main: monospace, sans-serif;
 
     // тени
-    --box-shadow: 5px 5px 5px 10px black;
+    --box-shadow: 0px 4px 16px var(--dark-color);
 
     // размеры контейнера
-    --container-width: 1024px;
+    --container-width: 1240px;
     --container-padding-x: 30px;
+    --container-padding-y: 40px;
 
     // отступы внутри кнопок
     --btn-padding: 12px;

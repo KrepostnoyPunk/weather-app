@@ -1,38 +1,53 @@
 .weather-app{
-    @include flex-center;
+    width: 100%;
 
     &__inner{
-        @include flex-center;
-        column-gap: 100px;
+       @include flex-center;
+       align-items: normal;
+       justify-content: space-between;
+       width: 100%;
+       height: auto;
+       border: var(--border-heavy);
+       border-radius: var(--card-border-radius);
+       padding: 34px;
+       column-gap: 80px;
     }
 
     &__search-group{
         @include flex-center;
         flex-direction: column;
         row-gap: 30px;
+        height: 100%;
+        border: 3px solid transparent;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--card-border-radius);
+        padding: 55px 25px;
+        max-width: 409px;
+        background-color: var(--blur-bg-color);
+        backdrop-filter: blur(10px);
+    }
+
+    &__field{
+        width: 100%;
     }
 
     &__forecast{
         @include flex-center;
+        align-items: start;
         flex-direction: column;
-        row-gap: 10px;
+        row-gap: 25px;
     }
 
-    &__current{
-        align-self: flex-start;
+    hr{
         width: 100%;
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--light-color);
+        border: var(--border-light)
     }
 
     &__today-group{
         @include flex-center;
         flex-direction: column;
-        row-gap: 50px;
-    }
-
-    &__today-highlights{
-        @include flex-center;
-        column-gap: 100px;
+        row-gap: 40px;
+        align-items: start;
+        padding: 20px;
     }
 }

@@ -1,0 +1,13 @@
+.additional-data{
+    @include flex-center;
+    align-items: normal;
+    column-gap: 100px;
+
+    &__list{
+        box-shadow: var(--box-shadow);
+        backdrop-filter: blur(8px);
+        padding: 34px;
+        border-radius: var(--card-border-radius);
+        height: 100%;
+    }
+}
