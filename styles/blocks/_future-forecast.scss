@@ -1,0 +1,19 @@
+.future-forecast{
+    @include flex-center;
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: start;
+    border-top: var(--border-light);
+    padding: 15px 0 0 0;
+
+    &__list{
+        @include flex-center;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
+    &__item{
+        @include flex-center;
+        column-gap: 15px;
+    }
+}

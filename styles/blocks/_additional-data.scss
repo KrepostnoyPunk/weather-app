@@ -1,7 +1,7 @@
 .additional-data{
-    @include flex-center;
-    align-items: normal;
-    column-gap: 100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
 
     &__list{
         box-shadow: var(--box-shadow);

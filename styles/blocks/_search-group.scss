@@ -1,0 +1,26 @@
+.search-group{
+    @include flex-center;
+    flex-direction: column;
+    row-gap: 30px;
+    height: 100%;
+    border: 3px solid transparent;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--card-border-radius);
+    padding: 45px 25px;
+    max-width: 410px;
+    background-color: var(--blur-bg-color);
+    backdrop-filter: blur(10px);
+
+    &__field{
+        width: 100%;
+    }
+
+    &__forecast,
+    &__current{
+        @include flex-center;
+        align-items: start;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
+}

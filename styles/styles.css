@@ -178,7 +178,8 @@ svg * {
   --border-light: 1px solid var(--light-color);
   --font-main: monospace, sans-serif;
   --box-shadow: 0px 4px 16px var(--dark-color);
-  --container-width: 1240px;
+  --box-shadow-light: 0px 4px 16px var(--light-color);
+  --container-width: 1300px;
   --container-padding-x: 30px;
   --container-padding-y: 40px;
   --btn-padding: 12px;
@@ -200,7 +201,7 @@ body {
   font-size: clamp(16px, 1.6666666667vw, 24px);
   color: var(--light-color);
   background-color: var(--bg-color);
-  background-image: url(/assets/images/bg--rainy--snowy.jpg);
+  background-image: url(/assets/images/reuben-wu-long-exposure-photography-circle-salt-lakes-hd-wallpaper-c9b0c8ad214a0d1b2617a80f70a1c67d.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -218,9 +219,6 @@ a {
   text-decoration: none;
 }
 
-.weather-app {
-  width: 100%;
-}
 .weather-app__inner {
   display: flex;
   justify-content: center;
@@ -229,13 +227,16 @@ a {
   justify-content: space-between;
   width: 100%;
   height: auto;
-  border: var(--border-heavy);
   border-radius: var(--card-border-radius);
   padding: 34px;
   -moz-column-gap: 80px;
        column-gap: 80px;
+  box-shadow: var(--box-shadow-light);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
 }
-.weather-app__search-group {
+
+.search-group {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -245,38 +246,59 @@ a {
   border: 3px solid transparent;
   box-shadow: var(--box-shadow);
   border-radius: var(--card-border-radius);
-  padding: 55px 25px;
-  max-width: 409px;
+  padding: 45px 25px;
+  max-width: 410px;
   background-color: var(--blur-bg-color);
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
 }
-.weather-app__field {
+.search-group__field {
   width: 100%;
 }
-.weather-app__forecast {
+.search-group__forecast, .search-group__current {
   display: flex;
   justify-content: center;
   align-items: center;
   align-items: start;
   flex-direction: column;
-  row-gap: 25px;
-}
-.weather-app hr {
-  width: 100%;
-  border: var(--border-light);
-}
-.weather-app__today-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  row-gap: 40px;
-  align-items: start;
-  padding: 20px;
+  row-gap: 15px;
 }
 
-.today-forecast {
+.future-forecast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 15px;
+  align-items: start;
+  border-top: var(--border-light);
+  padding: 15px 0 0 0;
+}
+.future-forecast__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 15px;
+}
+.future-forecast__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+
+.today-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+}
+.today-group__forecast {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -284,19 +306,33 @@ a {
   flex-direction: column;
   row-gap: 30px;
   align-items: start;
+  width: 100%;
 }
-.today-forecast__list {
+.today-group__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  width: 100%;
+}
+.today-group__item {
   display: flex;
   justify-content: center;
   align-items: center;
-  -moz-column-gap: 32px;
-       column-gap: 32px;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 10px;
+  box-shadow: var(--box-shadow);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border-radius: var(--card-border-radius);
 }
-.today-forecast__item {
-  padding: 20px;
+.today-group__time {
+  border-bottom: var(--border-light);
 }
-
-.today-highlights {
+.today-group__temperature {
+  font-size: 36px;
+}
+.today-group__highlights {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -306,12 +342,9 @@ a {
 }
 
 .additional-data {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-items: normal;
-  -moz-column-gap: 100px;
-       column-gap: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
 }
 .additional-data__list {
   box-shadow: var(--box-shadow);
