@@ -179,12 +179,11 @@ svg * {
   --font-main: monospace, sans-serif;
   --box-shadow: 0px 4px 16px var(--dark-color);
   --box-shadow-light: 0px 4px 16px var(--light-color);
-  --container-width: 1300px;
+  --container-width: 1100px;
   --container-padding-x: 30px;
   --container-padding-y: 40px;
   --btn-padding: 12px;
-  --input-padding: 0 12px;
-  --input-height: 40px;
+  --input-padding: 8px 12px;
   --transition-duration: .3s;
 }
 
@@ -198,10 +197,10 @@ svg * {
 body {
   font-family: var(--font-main);
   font-weight: 600;
-  font-size: clamp(16px, 1.6666666667vw, 24px);
+  font-size: clamp(14px, 1.25vw, 18px);
   color: var(--light-color);
   background-color: var(--bg-color);
-  background-image: url(/assets/images/reuben-wu-long-exposure-photography-circle-salt-lakes-hd-wallpaper-c9b0c8ad214a0d1b2617a80f70a1c67d.jpg);
+  background-image: url(/assets/images/gray-concrete-road-between-buildings-64ed8fb91dcf652c73174c43a0fa023e.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -226,7 +225,7 @@ a {
   align-items: normal;
   justify-content: space-between;
   width: 100%;
-  height: auto;
+  height: 700px;
   border-radius: var(--card-border-radius);
   padding: 34px;
   -moz-column-gap: 80px;
@@ -254,6 +253,20 @@ a {
 }
 .search-group__field {
   width: 100%;
+  border-radius: var(--input-border-radius);
+  border: var(--border-light);
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  color: var(--light-color);
+  padding: var(--input-padding);
+  outline: none;
+}
+.search-group__field::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.search-group__field::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 .search-group__forecast, .search-group__current {
   display: flex;
@@ -330,7 +343,7 @@ a {
   border-bottom: var(--border-light);
 }
 .today-group__temperature {
-  font-size: 36px;
+  font-size: 28px;
 }
 .today-group__highlights {
   display: flex;
@@ -347,6 +360,12 @@ a {
   gap: 30px;
 }
 .additional-data__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: start;
+  flex-direction: column;
+  row-gap: 15px;
   box-shadow: var(--box-shadow);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);

@@ -4,6 +4,10 @@
     gap: 30px;
 
     &__list{
+        @include flex-center;
+        align-items: start;
+        flex-direction: column;
+        row-gap: 15px;
         box-shadow: var(--box-shadow);
         backdrop-filter: blur(8px);
         padding: 34px;

@@ -9,20 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="weather-app ">
-        <div class="weather-app__inner container">
+    <div class="weather-app container">
+        <div class="weather-app__inner ">
             <!-- search-group -->
             <div class="weather-app__search-group search-group">
-                <input type="text" id="city" class="search-group__field">
-                <img src="./assets/icons/label.png" 
+                <input type="text" id="city" class="search-group__field" placeholder="Search city">
+                <img src="./assets/icons/cloudy.svg" 
                 alt="#" class="search-group__weather-img weather-img weather-img--current"
-                width="190"
-                height="200"
+                width="160"
+                height="160"
                 >
                 <div class="search-group__forecast">
                     <div class="search-group__current">
                         <address class="search-group__location">
-                             <i class="fa-solid fa-location-arrow"></i> Tula
+                             <p class="search-group__city">
+                                <i class="fa-solid fa-location-arrow"></i> Tokyo
+                             </p>
                         </address>
                         <p class="search-group__temperature">
                             -6 °C
@@ -37,13 +39,13 @@
                         </h3>
                         <ul class="future-forecast__list">
                             <li class="future-forecast__item">
-                                <img src="./assets/icons/label.png" alt="#" class="future-forecast__img weather-img"
-                                width="85"
-                                height="85"
+                                <img src="./assets/icons/snowy-6.svg" alt="#" class="future-forecast__img weather-img"
+                                width="80"
+                                height="80"
                                 >
                                 <div class="future-forecast__day-data">
                                     <span class="future-forecast__day">
-                                        Tuesday, June 13
+                                        Saturday 13.06
                                     </span>
                                     <span class="future-forecast__weather">
                                         Storm showers
@@ -61,9 +63,33 @@
                     <ul class="today-group__list">
                         <li class="today-group__item">
                             <p class="today-group__time">9:00</p>
-                            <img src="./assets/icons/label.png" alt="#" class="today-group__img weather-img"
-                            width="85"
-                            height="85"
+                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
+                            width="80"
+                            height="80"
+                            >
+                            <p class="today-group__temperature">20°C</p>
+                        </li>
+                        <li class="today-group__item">
+                            <p class="today-group__time">9:00</p>
+                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
+                            width="80"
+                            height="80"
+                            >
+                            <p class="today-group__temperature">20°C</p>
+                        </li>
+                        <li class="today-group__item">
+                            <p class="today-group__time">9:00</p>
+                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
+                            width="80"
+                            height="80"
+                            >
+                            <p class="today-group__temperature">20°C</p>
+                        </li>
+                        <li class="today-group__item">
+                            <p class="today-group__time">9:00</p>
+                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
+                            width="80"
+                            height="80"
                             >
                             <p class="today-group__temperature">20°C</p>
                         </li>
@@ -85,6 +111,7 @@
                                 <li class="additional-data__item">Humidity - 61.4%</li>
                                 <li class="additional-data__item">Visibility - 7 (Very light mist)</li>
                                 <li class="additional-data__item">Air Quality - 90</li>
+                                <li class="additional-data__item">People's Mood - 7/10</li>
                             </ul>
                         </li>
                     </ul>

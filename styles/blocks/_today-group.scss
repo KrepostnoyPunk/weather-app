@@ -29,7 +29,6 @@
         box-shadow: var(--box-shadow);
         backdrop-filter: blur(8px);
         border-radius: var(--card-border-radius);
-        // width: 180px;
     }
 
     &__time{
@@ -37,7 +36,7 @@
     }
 
     &__temperature{
-        font-size: 36px;
+        font-size: 28px;
     }
 
     &__highlights{

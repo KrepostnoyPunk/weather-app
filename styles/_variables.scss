@@ -28,7 +28,7 @@
     --box-shadow-light: 0px 4px 16px var(--light-color);
 
     // размеры контейнера
-    --container-width: 1300px;
+    --container-width: 1100px;
     --container-padding-x: 30px;
     --container-padding-y: 40px;
 
@@ -36,10 +36,7 @@
     --btn-padding: 12px;
 
     // отступы внутри input
-    --input-padding: 0 12px;
-
-    // высоты элементов
-    --input-height: 40px;
+    --input-padding: 8px 12px;
 
     // длительность переходов
     --transition-duration: .3s;

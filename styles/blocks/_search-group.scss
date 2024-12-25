@@ -13,6 +13,17 @@
 
     &__field{
         width: 100%;
+        border-radius: var(--input-border-radius);
+        border: var(--border-light);
+        background-color: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(10px);
+        color: var(--light-color);
+        padding: var(--input-padding);
+        outline: none;
+
+        &::placeholder{
+            color: rgba(255, 255, 255, .6);
+        }
     }
 
     &__forecast,
