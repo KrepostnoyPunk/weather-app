@@ -13,8 +13,13 @@
         <div class="weather-app__inner ">
             <!-- search-group -->
             <div class="weather-app__search-group search-group">
-                <input type="text" id="city" class="search-group__field" placeholder="Search city">
-                <img src="./assets/icons/cloudy.svg" 
+                <form class="search-group__form">
+                    <input type="text" id="city" class="search-group__field" placeholder="Search city">
+                    <button class="search-group__btn btn btn--search">
+                        <i class="fa-solid fa-magnifying-glass fa-sm"></i>
+                    </button>
+                </form>
+                <img src="./assets/icons/fog-day.svg" 
                 alt="#" class="search-group__weather-img weather-img weather-img--current"
                 width="160"
                 height="160"
@@ -35,11 +40,11 @@
                     </div>
                     <div class="search-group__future-forecast future-forecast">
                         <h3 class="future-forecast__title">
-                            Next 4 Days Forecast:
+                            Next 3 Days Forecast:
                         </h3>
                         <ul class="future-forecast__list">
                             <li class="future-forecast__item">
-                                <img src="./assets/icons/snowy-6.svg" alt="#" class="future-forecast__img weather-img"
+                                <img src="./assets/icons/sleet.svg" alt="#" class="future-forecast__img weather-img"
                                 width="80"
                                 height="80"
                                 >
@@ -59,35 +64,23 @@
             <!-- today-group -->
             <div class="weather-app__today-group today-group">
                 <div class="today-group__forecast">
-                    <h2 class="today-group__title part-title">Today's Forecast</h2>
+                    <div class="today-group__top">
+                        <h2 class="today-group__title part-title">Today's Forecast</h2>
+                        <!-- switcher -->
+                        <div class="switcher">
+                            <input type="checkbox" name="switcher__checkbox" id="switcher__checkbox" class="switcher__input">
+                            <label for="switcher__checkbox" class="switcher__wrapper" title="Measurement system, metric/imperial">
+                                <div class="switcher__switch" tabindex="1">
+                                    <p class="switcher__option switcher__option--first">me</p>
+                                    <p class="switcher__option switcher__option--second">im</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
                     <ul class="today-group__list">
                         <li class="today-group__item">
                             <p class="today-group__time">9:00</p>
-                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
-                            width="80"
-                            height="80"
-                            >
-                            <p class="today-group__temperature">20°C</p>
-                        </li>
-                        <li class="today-group__item">
-                            <p class="today-group__time">9:00</p>
-                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
-                            width="80"
-                            height="80"
-                            >
-                            <p class="today-group__temperature">20°C</p>
-                        </li>
-                        <li class="today-group__item">
-                            <p class="today-group__time">9:00</p>
-                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
-                            width="80"
-                            height="80"
-                            >
-                            <p class="today-group__temperature">20°C</p>
-                        </li>
-                        <li class="today-group__item">
-                            <p class="today-group__time">9:00</p>
-                            <img src="./assets/icons/snowy-1.svg" alt="#" class="today-group__img weather-img"
+                            <img src="./assets/icons/solar-eclipse.svg" alt="#" class="today-group__img weather-img"
                             width="80"
                             height="80"
                             >
@@ -111,7 +104,7 @@
                                 <li class="additional-data__item">Humidity - 61.4%</li>
                                 <li class="additional-data__item">Visibility - 7 (Very light mist)</li>
                                 <li class="additional-data__item">Air Quality - 90</li>
-                                <li class="additional-data__item">People's Mood - 7/10</li>
+                                <li class="additional-data__item">Golden Hour - 5:00 AM</li>
                             </ul>
                         </li>
                     </ul>
