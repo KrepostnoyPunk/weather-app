@@ -11,15 +11,20 @@
     background-color: var(--blur-bg-color);
     backdrop-filter: blur(10px);
 
+    &__form{
+        @include flex-center;
+    }
+
     &__field{
         width: 100%;
         border-radius: var(--input-border-radius);
         border: var(--border-light);
-        background-color: rgba(255, 255, 255, .1);
+        background-color: var(--blur-bg-color);
         backdrop-filter: blur(10px);
         color: var(--light-color);
         padding: var(--input-padding);
         outline: none;
+        position: relative;
 
         &::placeholder{
             color: rgba(255, 255, 255, .6);

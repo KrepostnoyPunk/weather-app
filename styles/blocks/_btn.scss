@@ -1,0 +1,8 @@
+.btn{
+
+    &--search{
+        @include reset-btn;
+        position: absolute;
+        right: 35px;
+    }
+}

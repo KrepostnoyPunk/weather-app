@@ -1,18 +1,12 @@
 :root{
     // цвета
-    --dark-color: rgb(25, 25, 25);;
-    --dark-color-alt: ;
-    --accent-color: ;
-    --accent-color-alt: ;
+    --dark-color: rgb(25, 25, 25);
     --light-color: #f0f0f0;
-    --light-color-alt: ;
-    --bg-color: rgb(25,25,25);
-    --blur-bg-color: rgba(255, 255, 255, 0.05);
+    --blur-bg-color: rgba(255, 255, 255, 0.1);
 
     // радиус рамок
     --card-border-radius: 16px;
     --input-border-radius: 12px;
-    --btn-border-radius: 10px;
     --circle-border-radius: 50%;
 
     // borders
@@ -40,4 +34,7 @@
 
     // длительность переходов
     --transition-duration: .3s;
+
+    // длительность анимаций
+    --animation-duration: .4s;
 }

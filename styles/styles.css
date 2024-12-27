@@ -162,16 +162,10 @@ svg * {
 }
 :root {
   --dark-color: rgb(25, 25, 25);
-  --dark-color-alt: ;
-  --accent-color: ;
-  --accent-color-alt: ;
   --light-color: #f0f0f0;
-  --light-color-alt: ;
-  --bg-color: rgb(25,25,25);
-  --blur-bg-color: rgba(255, 255, 255, 0.05);
+  --blur-bg-color: rgba(255, 255, 255, 0.1);
   --card-border-radius: 16px;
   --input-border-radius: 12px;
-  --btn-border-radius: 10px;
   --circle-border-radius: 50%;
   --border-heavy: 6px solid var(--light-color);
   --border-medium: 3px solid var(--light-color);
@@ -185,6 +179,7 @@ svg * {
   --btn-padding: 12px;
   --input-padding: 8px 12px;
   --transition-duration: .3s;
+  --animation-duration: .4s;
 }
 
 .container {
@@ -199,7 +194,7 @@ body {
   font-weight: 600;
   font-size: clamp(14px, 1.25vw, 18px);
   color: var(--light-color);
-  background-color: var(--bg-color);
+  background-color: var(--dark-color);
   background-image: url(/assets/images/gray-concrete-road-between-buildings-64ed8fb91dcf652c73174c43a0fa023e.jpg);
   background-position: center;
   background-repeat: no-repeat;
@@ -216,6 +211,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+i {
+  color: var(--light-color);
 }
 
 .weather-app__inner {
@@ -235,6 +234,14 @@ a {
           backdrop-filter: blur(8px);
 }
 
+.btn--search {
+  background-color: transparent;
+  border: none;
+  padding: none;
+  position: absolute;
+  right: 35px;
+}
+
 .search-group {
   display: flex;
   justify-content: center;
@@ -251,16 +258,22 @@ a {
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
 }
+.search-group__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .search-group__field {
   width: 100%;
   border-radius: var(--input-border-radius);
   border: var(--border-light);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--blur-bg-color);
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   color: var(--light-color);
   padding: var(--input-padding);
   outline: none;
+  position: relative;
 }
 .search-group__field::-moz-placeholder {
   color: rgba(255, 255, 255, 0.6);
@@ -321,6 +334,13 @@ a {
   align-items: start;
   width: 100%;
 }
+.today-group__top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
 .today-group__list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -352,6 +372,59 @@ a {
   align-items: start;
   flex-direction: column;
   row-gap: 30px;
+}
+
+.switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.switcher__input {
+  visibility: hidden;
+}
+.switcher__wrapper {
+  border: var(--border-light);
+  width: 70px;
+  height: 35px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background-color: var(--blur-bg-color);
+}
+.switcher__switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  background-color: var(--light-color);
+  border-radius: 4px;
+}
+.switcher__option {
+  color: var(--dark-color);
+}
+.switcher__option--second {
+  display: none;
+}
+@keyframes toggleOn {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(35px);
+  }
+}
+@keyframes toggleOf {
+  0% {
+    transform: translateX(35px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .additional-data {

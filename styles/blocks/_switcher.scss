@@ -1,0 +1,54 @@
+.switcher{
+    @include flex-center;
+
+    &__input{
+        visibility: hidden;
+    }
+
+    &__wrapper{
+        border: var(--border-light);
+        width: 70px;
+        height: 35px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        background-color: var(--blur-bg-color);
+    }
+
+    &__switch{
+        @include flex-center;
+        width: 50%;
+        height: 100%;
+        background-color: var(--light-color);
+        border-radius: 4px;
+    }
+
+    &__option{
+        color: var(--dark-color);
+
+        &--second{
+            display: none;
+        }
+    }
+
+    @keyframes toggleOn {
+        0%{
+            transform: translateX(0);
+        }
+        100%{
+            transform: translateX(35px);
+        }
+    }
+
+    @keyframes toggleOf {
+        0%{
+            transform: translateX(35px);
+        }
+        100%{
+            transform: translateX(0);
+        }
+    }
+}
