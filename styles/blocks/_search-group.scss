@@ -6,13 +6,15 @@
     border: 3px solid transparent;
     box-shadow: var(--box-shadow);
     border-radius: var(--card-border-radius);
-    padding: 45px 25px;
-    max-width: 410px;
+    padding: 20px;
+    width: 35%;
     background-color: var(--blur-bg-color);
     backdrop-filter: blur(10px);
 
     &__form{
         @include flex-center;
+        position: relative;
+        width: 90%;
     }
 
     &__field{
@@ -24,7 +26,6 @@
         color: var(--light-color);
         padding: var(--input-padding);
         outline: none;
-        position: relative;
 
         &::placeholder{
             color: rgba(255, 255, 255, .6);
@@ -37,6 +38,7 @@
         align-items: start;
         flex-direction: column;
         row-gap: 15px;
+        width: 100%;
     }
 
 }
