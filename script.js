@@ -7,6 +7,7 @@ const currentDate = document.querySelector('.search-group__date');
 const currentWeatherImg = document.querySelector('.search-group__weather-img');
 const additionalDataItems = document.querySelectorAll('.additional-data__item');
 const futureForecastList = document.querySelector('.future-forecast__list')
+const hourlyForecastList = document.querySelector('.today-group__list')
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 
@@ -40,7 +41,20 @@ function getData(cityValue){
         })
 } // all good
 
-function fillEntities(dataObj){
+
+function fillEntities(dataObj){ // функция-прокси для передачи объекта с данными для других функций, которые будут заполнять группы элементов данными
+
+    fillCurrent(dataObj); // передаем объект с текущими данными
+
+    fillForecast(dataObj.forecast.forecastday); // передаем массив объектов с прогнозом на 4 дня
+
+    fillHourlyForecast(dataObj); // передаем массив объектов с прогнозом на 24 часа .forecast.forecastday[0].hour, dataObj.location.localtime
+
+    fillAdditionalData(dataObj); // передаем объект с дополнительными данными
+}
+
+
+function fillCurrent(dataObj) {
     currentWeatherImg.src = `./assets/icons/${dataObj.current.condition.text}.svg`
     cityName.innerHTML = `<i class="fa-solid fa-location-arrow"></i> ${dataObj.location.name}`
     currentTemperature.textContent = `
@@ -65,23 +79,25 @@ function fillEntities(dataObj){
 
 
     currentDate.textContent = `${days[locationDay]}, ${hourGaranteed < 10 ? `0${hourGaranteed}` : hourGaranteed}:${locationMinutes < 10 ? `0${locationMinutes}` : locationMinutes} ${amOrPm}`
+}
 
-    let forecastArray = dataObj.forecast.forecastday; // получаем массив объектов с прогнозом на 4 дня
 
-    forecastArray.forEach((element, index) => {
+function fillForecast(forecastArray){
+    
+    forecastArray.slice(1).forEach(element => { // срезаем первый элемент, т.к. он является текущим днем
         if(document.querySelectorAll('.future-forecast__item').length < 3){ // если длина списка прогноза меньше 3, то...
 
             let futureForecastItem = document.createElement('li')
             futureForecastItem.classList.add('future-forecast__item')
 
-            let forecastDate = new Date(dataObj.forecast.forecastday[index+1].date); // +1 чтобы скипнуть первый день, который является текущим
+            let forecastDate = new Date(element.date);
             let forecastDay = forecastDate.getDay();
             let forecastMonthDay = forecastDate.getDate();
             let forecastMonth = forecastDate.getMonth() + 1; // почему то месяц получался на -1 
 
-            // создаемшаблон внутренней разметки на основе данных из объекта для динамического создания элементов
+            // создаем шаблон внутренней разметки на основе данных из объекта для динамического создания элементов
             futureForecastItem.innerHTML = ` 
-                <img src="./assets/icons/${dataObj.forecast.forecastday[index+1].day.condition.text}.svg" alt="#" class="future-forecast__img weather-img"
+                <img src="./assets/icons/${element.day.condition.text}.svg" alt="#" class="future-forecast__img weather-img"
                 width="80"
                 height="80"
                 >
@@ -90,19 +106,63 @@ function fillEntities(dataObj){
                         ${days[forecastDay]}, ${forecastMonthDay < 10 ? `0${forecastMonthDay}` : forecastMonthDay}.${forecastMonth < 10 ? `0${forecastMonth}` : forecastMonth}
                     </p> 
                     <p class="future-forecast__weather">
-                        ${dataObj.forecast.forecastday[index+1].day.condition.text}
+                        ${element.day.condition.text}
                     </p> 
                     <p class="future-forecast__temperature">
-                    ${Math.round(dataObj.forecast.forecastday[index+1].day.avgtemp_c)} ${metricMeasurementSystem ? '°C' : '°F'} 
+                        ${Math.round(element.day.avgtemp_c)} ${metricMeasurementSystem ? '°C' : '°F'} 
                     </p>
                 </div>
             `
             futureForecastList.append(futureForecastItem) // добавляем элементы в список-прогноз
         }   
     })
+}
 
+
+function fillHourlyForecast(dataObj){
+
+    let hourlyForecastArray = dataObj.forecast.forecastday[0].hour;
+    let hourTime = new Date(hourlyForecastArray[0].time).getHours();
+    let localTime = new Date(dataObj.location.localtime).getHours();
     
+    console.log(hourlyForecastArray);
+
+    // slice from el.time.getH() === localTime.getH()
     
+    hourlyForecastArray.forEach(element => {
+        if(document.querySelectorAll('.today-group__item').length < 4){ // если длина списка прогноза меньше 4, то...
+
+            let hourlyForecastItem = document.createElement('li')
+            hourlyForecastItem.classList.add('today-group__item')
+
+            let forecastDate = new Date(element.time);
+            let forecastHours = forecastDate.getHours();
+            let forecastMinutes = forecastDate.getMinutes();
+
+            // создаем шаблон внутренней разметки на основе данных из объекта для динамического создания элементов
+            hourlyForecastItem.innerHTML = ` 
+                <p class="today-group__time">${forecastHours < 10 ? `0${forecastHours}` : forecastHours}:${forecastMinutes < 10 ? `0${forecastMinutes}` : forecastMinutes}</p>
+                <img src="./assets/icons/${element.condition.text}.svg" alt="#" class="today-group__img weather-img"
+                width="80"
+                height="80"
+                >
+                <p class="today-group__temperature">
+                ${metricMeasurementSystem ? // в зависимости от состояние флага, изменяются отображаемые единицы измерения
+                    Math.round(element.temp_c) 
+                    : 
+                    Math.round(element.temp_f)} 
+                ${metricMeasurementSystem ? 
+                    '°C' 
+                    : 
+                    '°F'}</p>
+            `
+            hourlyForecastList.append(hourlyForecastItem) // добавляем элементы в список-прогноз
+        }   
+    })
+}
+
+
+function fillAdditionalData(dataObj){
     additionalDataItems.forEach(item => {
         switch (true) {
             case item.classList.contains('additional-data__item--uv'):{
@@ -142,11 +202,6 @@ function fillEntities(dataObj){
 }
 
 
-function updateEntities(){
-
-}
-
-
 document.addEventListener('submit', e => {
     e.preventDefault()
 
@@ -155,5 +210,5 @@ document.addEventListener('submit', e => {
 
 
 setTimeout(() => {
-    updateEntities()
+    getData(cityInput.value)
 }, 100000);

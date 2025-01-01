@@ -349,7 +349,6 @@ i {
   display: grid;
   grid-template-columns: repeat(4, 125px);
   gap: 32px;
-  width: 100%;
 }
 .today-group__item {
   display: flex;
