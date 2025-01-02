@@ -217,6 +217,36 @@ i {
   color: var(--light-color);
 }
 
+.preloader {
+  display: inline-flex;
+  gap: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--dark-color);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.preloader:before,
+.preloader:after {
+  content: "";
+  height: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #000 95%, rgba(0, 0, 0, 0)) 35% 35%/6px 6px no-repeat #fff;
+  transform: scaleX(1) rotate(0deg);
+  animation: eyeroll 1s infinite linear;
+}
+
+@keyframes eyeroll {
+  100% {
+    transform: scaleX(1) rotate(360deg);
+  }
+}
 .weather-app__inner {
   display: flex;
   justify-content: center;
@@ -349,6 +379,7 @@ i {
   display: grid;
   grid-template-columns: repeat(4, 125px);
   gap: 32px;
+  width: 100%;
 }
 .today-group__item {
   display: flex;
@@ -406,7 +437,7 @@ i {
   width: 50%;
   height: 100%;
   background-color: var(--light-color);
-  border-radius: 4px;
+  border-radius: 2px;
 }
 .switcher__option {
   color: var(--dark-color);
@@ -422,7 +453,7 @@ i {
     transform: translateX(35px);
   }
 }
-@keyframes toggleOf {
+@keyframes toggleOff {
   0% {
     transform: translateX(35px);
   }
