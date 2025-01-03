@@ -1,4 +1,3 @@
-const API_KEY= "38db5cce97194b849e7145718242612";
 const cityInput = document.querySelector('#city');
 const switchBtn = document.querySelector('.switcher__switch');
 const cityName = document.querySelector('.search-group__city');
@@ -16,7 +15,63 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 let metricMeasurementSystem = true; // флаг состояния для переключения системы измерения
 
 
+function getLocation(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(getCoordinates) // в случае если поддерживается метод запроса на получение местоположения и если дано согласие вызвать функцию getCoordinates результатом которой будет результат выполнения reverseGeocode
+    } else{
+        console.log('Geolocation is not welcomed here...');
+    }
+}
+
+
+function getCoordinates(position){
+    console.log(position);
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    reverseGeocode(lat, lon) // получаем координаты из объекта position и передаем в качестве аргументов функции которая эти координаты преобразует в название города
+}
+
+
+function reverseGeocode(lat, lon){
+    const API_KEY = "8e126ecf7f05478f8f99f0a470279c5b";
+    const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${API_KEY}`;
+
+    preloaderEl.style.cssText = `
+        display: inline-flex;
+        background-color: rgba(24, 22, 25, .3);
+    `
+
+    fetch(url)
+        .then(response => {
+            console.log(response);
+            
+            if(!response.ok){
+                throw new Error(error.stack)
+            }
+            
+            return response.json()
+        })
+        .then(dataObj => {
+            console.log(dataObj);
+
+            if(!dataObj){
+                throw new Error(error.stack)
+            }
+            
+            const locationCity = dataObj.features[0].properties.city;
+            
+            getData(locationCity)
+
+            preloaderEl.style.display = 'none'
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+  
 function getData(cityValue){
+    const API_KEY= "38db5cce97194b849e7145718242612";
     const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityValue}&days=4`;
 
     preloaderEl.style.cssText = `
@@ -64,7 +119,7 @@ function fillEntities(dataObj){ // функция-прокси для перед
 
 
 function fillCurrent(dataObj) {
-    currentWeatherImg.src = `./assets/icons/${dataObj.current.condition.text}.svg`
+    currentWeatherImg.src = `${dataObj.current.condition.icon}`
     cityName.innerHTML = `<i class="fa-solid fa-location-arrow"></i> ${dataObj.location.name}`
     currentTemperature.textContent = `${metricMeasurementSystem ?  `${Math.round(dataObj.current.temp_c)} °C` : `${Math.round(dataObj.current.temp_f)} °F`}`
 
@@ -102,7 +157,7 @@ function fillForecast(forecastArray){
     
                 // создаем шаблон внутренней разметки на основе данных из объекта для динамического создания элементов
                 futureForecastItem.innerHTML = ` 
-                    <img src="./assets/icons/${element.day.condition.text}.svg" alt="#" class="future-forecast__img weather-img"
+                    <img src="${element.day.condition.icon}" alt="#" class="future-forecast__img weather-img"
                     width="80"
                     height="80"
                     >
@@ -148,7 +203,7 @@ function fillHourlyForecast(dataObj){
                 // создаем шаблон внутренней разметки на основе данных из объекта для динамического создания элементов
                 hourlyForecastItem.innerHTML = ` 
                     <p class="today-group__time">${forecastHours < 10 ? `0${forecastHours}` : forecastHours}:${forecastMinutes < 10 ? `0${forecastMinutes}` : forecastMinutes}</p>
-                    <img src="./assets/icons/${element.condition.text}.svg" alt="#" class="today-group__img weather-img"
+                    <img src="${element.condition.icon}" alt="#" class="today-group__img weather-img"
                     width="80"
                     height="80"
                     >
@@ -175,7 +230,7 @@ function fillAdditionalData(dataObj){
                 break;
             }
             case item.classList.contains('additional-data__item--visibility'):{
-                item.textContent = `Visibility - ${Math.round(dataObj.current.vis_km)}`
+                item.textContent = `Visibility - ${metricMeasurementSystem ? `${Math.round(dataObj.current.vis_km)} Km` : `${Math.round(dataObj.current.vis_miles)} Mi`}`
                 break;
             }
             case item.classList.contains('additional-data__item--humidity'):{
@@ -235,6 +290,7 @@ function toggleMeasurementSystem(e){
 
 window.addEventListener('load', e => {
     preloaderEl.style.display = 'none'
+    getLocation()
 })
 
 
@@ -247,11 +303,15 @@ document.addEventListener('submit', e => {
 
 
 switchBtn.addEventListener('click', e => {
-    toggleMeasurementSystem(e)
+    if(cityInput.value){
+        toggleMeasurementSystem(e)
+    }
 })
 
 
 setTimeout(() => {
     clearPreviousResult()
-    getData(cityInput.value)
+    if(cityInput.value){
+        getData(cityInput.value)
+    }
 }, 100000);
