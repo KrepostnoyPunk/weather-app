@@ -15,9 +15,9 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 let metricMeasurementSystem = true; // флаг состояния для переключения системы измерения
 
 
-function getLocation(){
+async function getLocation(){
     if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(getCoordinates) // в случае если поддерживается метод запроса на получение местоположения и если дано согласие вызвать функцию getCoordinates результатом которой будет результат выполнения reverseGeocode
+        navigator.geolocation.getCurrentPosition(getCoordinates, showError) // в случае если поддерживается метод запроса на получение местоположения и если дано согласие вызвать функцию getCoordinates результатом которой будет результат выполнения reverseGeocode
     } else{
         console.log('Geolocation is not welcomed here...');
     }
@@ -32,7 +32,25 @@ function getCoordinates(position){
 }
 
 
-function reverseGeocode(lat, lon){
+function showError(error){
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied location request.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Inforamation about position unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("Location request timeout.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("0_o unknown error.");
+            break;
+    }
+}
+
+
+async function reverseGeocode(lat, lon){
     const API_KEY = "8e126ecf7f05478f8f99f0a470279c5b";
     const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${API_KEY}`;
 
@@ -41,68 +59,50 @@ function reverseGeocode(lat, lon){
         background-color: rgba(24, 22, 25, .3);
     `
 
-    fetch(url)
-        .then(response => {
-            console.log(response);
-            
-            if(!response.ok){
-                throw new Error(error.stack)
-            }
-            
-            return response.json()
-        })
-        .then(dataObj => {
-            console.log(dataObj);
+    try {
+        const response = await fetch(url);
 
-            if(!dataObj){
-                throw new Error(error.stack)
-            }
-            
-            const locationCity = dataObj.features[0].properties.city;
-            
-            getData(locationCity)
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-            preloaderEl.style.display = 'none'
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        const dataObj = await response.json();
+
+        const locationCity = dataObj.features[0].properties.city;
+
+        getData(locationCity);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    } finally {
+        preloaderEl.style.display = 'none';
+    }
 }
 
   
-function getData(cityValue){
+async function getData(cityValue){
     const API_KEY= "38db5cce97194b849e7145718242612";
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityValue}&days=4`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityValue}&days=4`;
 
     preloaderEl.style.cssText = `
         display: inline-flex;
         background-color: rgba(24, 22, 25, .3);
     `
 
-    fetch(url)
-        .then(response => {
-            console.log(response);
+    try {
+        const response = await fetch(url);
 
-            if(!response.ok){
-                throw new Error(error.stack)
-            }
-            
-            return response.json()
-        })
-        .then(dataObj => {
-            console.log(dataObj);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-            if(!dataObj){
-                throw new Error(error.stack)
-            }
+        const dataObj = await response.json();
 
-            fillEntities(dataObj);
-
-            preloaderEl.style.display = 'none'
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        fillEntities(dataObj);
+    } catch (error) {
+        console.error('Fetch error:', error);
+    } finally {
+        preloaderEl.style.display = 'none';
+    }
 } // all good
 
 
