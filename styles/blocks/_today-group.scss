@@ -20,11 +20,21 @@
         justify-content: space-between;
     }
 
-    &__list{
-        display: grid;
-        grid-template-columns: repeat(4, 125px);
-        gap: 32px;
+    &__slider{
+        overflow: hidden;
         width: 100%;
+        padding: 16px 0;
+        background-color: transparent;
+        border: none;
+        position: relative;
+    }
+
+    &__list{
+        @include flex-center;
+        column-gap: 32px;
+        width: 100%;
+        height: auto;
+        transition: transform var(--transition-duration) ease;
     }
 
     &__item{
@@ -35,6 +45,8 @@
         box-shadow: var(--box-shadow);
         backdrop-filter: blur(8px);
         border-radius: var(--card-border-radius);
+        width: 132px;
+        flex-shrink: 0;
     }
 
     &__time{

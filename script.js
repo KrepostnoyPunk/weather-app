@@ -7,7 +7,7 @@ const currentWeatherImg = document.querySelector('.search-group__weather-img');
 const additionalDataItems = document.querySelectorAll('.additional-data__item');
 const futureForecastGroup = document.querySelector('.future-forecast')
 const switcherOption = document.querySelector('.switcher__option')
-const todayForecastGroup = document.querySelector('.today-group__forecast')
+const todayForecastGroup = document.querySelector('.today-group__slider')
 const preloaderEl = document.querySelector('.preloader')
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -24,11 +24,13 @@ async function getLocation(){
 }
 
 
-function getCoordinates(position){
-    console.log(position);
+async function getCoordinates(position){
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    reverseGeocode(lat, lon) // получаем координаты из объекта position и передаем в качестве аргументов функции которая эти координаты преобразует в название города
+    let city = await reverseGeocode(lat, lon) // получаем координаты из объекта position и передаем в качестве аргументов функции которая эти координаты преобразует в название города
+    if(city){
+        await getData(city)
+    }
 }
 
 
@@ -70,7 +72,7 @@ async function reverseGeocode(lat, lon){
 
         const locationCity = dataObj.features[0].properties.city;
 
-        getData(locationCity);
+        return locationCity;
     } catch (error) {
         console.error('Fetch error:', error);
     } finally {
@@ -97,7 +99,8 @@ async function getData(cityValue){
 
         const dataObj = await response.json();
 
-        fillEntities(dataObj);
+        await fillEntities(dataObj);
+
     } catch (error) {
         console.error('Fetch error:', error);
     } finally {
@@ -106,7 +109,7 @@ async function getData(cityValue){
 } // all good
 
 
-function fillEntities(dataObj){ // функция-прокси для передачи объекта с данными для других функций, которые будут заполнять группы элементов данными
+async function fillEntities(dataObj){ // функция-прокси для передачи объекта с данными для других функций, которые будут заполнять группы элементов данными
 
     fillCurrent(dataObj); // передаем объект с текущими данными
 
@@ -139,7 +142,6 @@ function fillCurrent(dataObj) {
 
 function fillForecast(forecastArray){
 
-    if(!document.querySelector('.future-forecast__list')){
         let  futureForecastList = document.createElement('ul')
         futureForecastList.classList.add('future-forecast__list')
         futureForecastGroup.append(futureForecastList)
@@ -176,13 +178,11 @@ function fillForecast(forecastArray){
                 futureForecastList.append(futureForecastItem) // добавляем элементы в список-прогноз
             }   
         })
-    }
 }
 
 
 function fillHourlyForecast(dataObj){
 
-    if(!document.querySelector('.today-group__list')){
         let  hourlyForecastList = document.createElement('ul')
         hourlyForecastList.classList.add('today-group__list')
         todayForecastGroup.append(hourlyForecastList)
@@ -214,7 +214,6 @@ function fillHourlyForecast(dataObj){
                 hourlyForecastList.append(hourlyForecastItem) // добавляем элементы в список-прогноз
             }   
         })
-    }
 }
 
 
@@ -289,7 +288,7 @@ function toggleMeasurementSystem(e){
 
 
 window.addEventListener('load', e => {
-    preloaderEl.style.display = 'none'
+    preloaderEl.style.display = 'none';
     getLocation()
 })
 

@@ -1,13 +1,13 @@
 .search-group{
     @include flex-center;
     flex-direction: column;
+    flex-shrink: 0;
     row-gap: 30px;
     height: 100%;
     border: 3px solid transparent;
     box-shadow: var(--box-shadow);
     border-radius: var(--card-border-radius);
     padding: 20px;
-    width: 35%;
     background-color: var(--blur-bg-color);
     backdrop-filter: blur(10px);
 

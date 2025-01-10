@@ -5,4 +5,23 @@
         position: absolute;
         right: 5%;
     }
+
+    &--prev,
+    &--next{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 111111;
+    }
+
+    &--prev{
+        left: 0;
+    }
+
+    &--next{
+        right: 0;
+    }
 }
