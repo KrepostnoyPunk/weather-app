@@ -7,12 +7,16 @@ const currentWeatherImg = document.querySelector('.search-group__weather-img');
 const additionalDataItems = document.querySelectorAll('.additional-data__item');
 const futureForecastGroup = document.querySelector('.future-forecast')
 const switcherOption = document.querySelector('.switcher__option')
-const todayForecastGroup = document.querySelector('.today-group__slider')
+const todayForecastGroup = document.querySelector('.today-group__list-wrapper')
 const preloaderEl = document.querySelector('.preloader')
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const prevBtn = document.querySelector('.btn--prev')
+const nextBtn = document.querySelector('.btn--next')
 
 
 let metricMeasurementSystem = true; // флаг состояния для переключения системы измерения
+
+let currentSlide = 0; // переменная для хранения текущего слайда
 
 
 async function getLocation(){
@@ -25,11 +29,28 @@ async function getLocation(){
 
 
 async function getCoordinates(position){
+    // получаем координаты из объекта position и передаем в качестве аргументов функции которая эти координаты преобразует в название города
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    let city = await reverseGeocode(lat, lon) // получаем координаты из объекта position и передаем в качестве аргументов функции которая эти координаты преобразует в название города
+    
+
+    let actualLocation = await reverseGeocode(lat, lon) // получаем актуальную локацию по координатам    
+    let cachedLocation = localStorage.getItem('location') // получаем раннее сохраненный город из localStorage
+
+    let city;
+    
+    if(actualLocation != cachedLocation || !cachedLocation){ // если актуальная локация не равна сохраненной или сохраненной локации нет, то...
+        city = actualLocation; // присваиваем актуальную локацию
+    } else {
+        city = cachedLocation // присваиваем сохраненную локацию
+    }
+    
+    cityInput.value = city
+
     if(city){
         await getData(city)
+    } else {
+        // error handler
     }
 }
 
@@ -71,6 +92,8 @@ async function reverseGeocode(lat, lon){
         const dataObj = await response.json();
 
         const locationCity = dataObj.features[0].properties.city;
+
+        localStorage.setItem('location', locationCity) // сохраняем локацию пользователя в localStorage
 
         return locationCity;
     } catch (error) {
@@ -124,17 +147,16 @@ async function fillEntities(dataObj){ // функция-прокси для пе
 function fillCurrent(dataObj) {
     currentWeatherImg.src = `${dataObj.current.condition.icon}`
     cityName.innerHTML = `<i class="fa-solid fa-location-arrow"></i> ${dataObj.location.name}`
-    currentTemperature.textContent = `${metricMeasurementSystem ?  `${Math.round(dataObj.current.temp_c)} °C` : `${Math.round(dataObj.current.temp_f)} °F`}`
+    currentTemperature.textContent = `${dataObj.current.condition.text}, ${metricMeasurementSystem ?  `${Math.round(dataObj.current.temp_c)} °C` : `${Math.round(dataObj.current.temp_f)} °F`}`
 
     let localTime = new Date(dataObj.location.localtime); // получаем локальное время
     let locationHours = localTime.getHours();
     let locationMinutes = localTime.getMinutes();
     let locationDay = localTime.getDay();
-
+    
     const amOrPm = locationHours < 12 ? 'AM' : 'PM';
     const hourTwelveish = locationHours % 12;
     const hourGaranteed = hourTwelveish ? hourTwelveish : 12;  // из-за того что получался ноль при делении по остатку, получалось неправильное время и т.к. 0 - false, его можно заменить 
-
 
     currentDate.textContent = `${days[locationDay]}, ${hourGaranteed < 10 ? `0${hourGaranteed}` : hourGaranteed}:${locationMinutes < 10 ? `0${locationMinutes}` : locationMinutes} ${amOrPm}`
 }
@@ -159,7 +181,7 @@ function fillForecast(forecastArray){
     
                 // создаем шаблон внутренней разметки на основе данных из объекта для динамического создания элементов
                 futureForecastItem.innerHTML = ` 
-                    <img src="${element.day.condition.icon}" alt="#" class="future-forecast__img weather-img"
+                    <img src="${element.day.condition.icon}" alt="${element.day.condition.text}" class="future-forecast__img weather-img"
                     width="80"
                     height="80"
                     >
@@ -203,7 +225,7 @@ function fillHourlyForecast(dataObj){
                 // создаем шаблон внутренней разметки на основе данных из объекта для динамического создания элементов
                 hourlyForecastItem.innerHTML = ` 
                     <p class="today-group__time">${forecastHours < 10 ? `0${forecastHours}` : forecastHours}:${forecastMinutes < 10 ? `0${forecastMinutes}` : forecastMinutes}</p>
-                    <img src="${element.condition.icon}" alt="#" class="today-group__img weather-img"
+                    <img src="${element.condition.icon}" alt="${element.condition.text}" class="today-group__img weather-img"
                     width="80"
                     height="80"
                     >
@@ -214,6 +236,14 @@ function fillHourlyForecast(dataObj){
                 hourlyForecastList.append(hourlyForecastItem) // добавляем элементы в список-прогноз
             }   
         })
+}
+
+
+function updateSlider(){
+    const slideWidth = document.querySelector('.today-group__item').offsetWidth; // получаем ширину слайда которая равна ширине элемента списка
+    const todayGroupList = document.querySelector('.today-group__list'); // получаем список элементов слайдера
+    
+    todayGroupList.style.transform = `translateX(-${(slideWidth + 10) * currentSlide}px)` // перемещаем список на длину элемента слайда умноженную на текущий слайд + смещение
 }
 
 
@@ -258,12 +288,17 @@ function fillAdditionalData(dataObj){
 
 
 function clearPreviousResult(){
+    preloaderEl.style.cssText = `
+        display: inline-flex;
+        background-color: rgba(24, 22, 25, .3);
+    `
     if(document.querySelector('.future-forecast__list')){
         document.querySelector('.future-forecast__list').remove()
     }
     if(document.querySelector('.today-group__list')){
         document.querySelector('.today-group__list').remove()
     }
+    preloaderEl.style.display = 'none'
 }
 
 
@@ -275,12 +310,12 @@ function toggleMeasurementSystem(e){
         switchBtn.style.animation = `toggleOn var(--animation-duration) linear forwards`;
         switcherOption.textContent = `im`;
         metricMeasurementSystem = false;
-        console.log(metricMeasurementSystem);
+        localStorage.setItem('metricMeasurementSystem', metricMeasurementSystem)
     } else {
         switchBtn.style.animation = `toggleOff var(--animation-duration) linear forwards`;
         switcherOption.textContent = `me`;
         metricMeasurementSystem = true;
-        console.log(metricMeasurementSystem);
+        localStorage.setItem('metricMeasurementSystem', metricMeasurementSystem)
     }
 
     getData(cityInput.value)
@@ -308,9 +343,31 @@ switchBtn.addEventListener('click', e => {
 })
 
 
+prevBtn.addEventListener('click', () => {
+    if(currentSlide > 0){
+        currentSlide--;
+    } else {
+        currentSlide = document.querySelectorAll('.today-group__item').length - 1; // Возвращаемся к последнему элементу
+    }
+    updateSlider();
+})
+
+
+nextBtn.addEventListener('click', () => {
+    if(currentSlide < document.querySelectorAll('.today-group__item').length - 1){
+        currentSlide++;
+    } else {
+        currentSlide = 0; // Возвращаемся к первому элементу
+    }
+    updateSlider();
+})
+
+
 setTimeout(() => {
     clearPreviousResult()
     if(cityInput.value){
         getData(cityInput.value)
+    } else{
+        getLocation()
     }
 }, 100000);
