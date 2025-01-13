@@ -38,10 +38,11 @@
 
     &__list{
         display: flex;
-        column-gap: 22px;
+        column-gap: 12px;
         height: auto;
         transition: var(--transition-duration) ease-in-out;
         transform: translateX(0);
+        width: 100%;
     }
 
     &__item{
@@ -52,8 +53,8 @@
         box-shadow: var(--box-shadow);
         backdrop-filter: blur(8px);
         border-radius: var(--card-border-radius);
-        margin: 0 10px;
-        min-width: 130px;
+        margin: 0 12px;
+        min-width: 134px;
         flex-shrink: 0;
     }
 

@@ -13,6 +13,12 @@
     <div class="preloader"></div>
 
     <div class="weather-app container">
+        <form class="search-group__form search-group__form--welcome">
+            <input type="text" id="city" class="search-group__field search-group__field--welcome" placeholder="Search city">
+            <button class="search-group__btn btn btn--search">
+                <i class="fa-solid fa-magnifying-glass fa-xs"></i>
+            </button>
+        </form>
         <div class="weather-app__inner ">
             <!-- search-group -->
             <div class="weather-app__search-group search-group">
@@ -56,8 +62,7 @@
                             <input type="checkbox" name="switcher__checkbox" id="switcher__checkbox" class="switcher__input">
                             <label for="switcher__checkbox" class="switcher__wrapper" title="Measurement system, metric/imperial">
                                 <div class="switcher__switch" tabindex="1">
-                                    <p class="switcher__option switcher__option--first">me</p>
-                                    <p class="switcher__option switcher__option--second">im</p>
+                                    <p class="switcher__option switcher__option--first"></p>
                                 </div>
                             </label>
                         </div>

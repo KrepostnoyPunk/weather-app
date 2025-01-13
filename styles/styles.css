@@ -328,6 +328,10 @@ i {
 .search-group__field::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
+.search-group__field--welcome {
+  width: 600px;
+  height: 50px;
+}
 .search-group__forecast, .search-group__current {
   display: flex;
   justify-content: center;
@@ -407,11 +411,12 @@ i {
 }
 .today-group__list {
   display: flex;
-  -moz-column-gap: 22px;
-       column-gap: 22px;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
   height: auto;
   transition: var(--transition-duration) ease-in-out;
   transform: translateX(0);
+  width: 100%;
 }
 .today-group__item {
   display: flex;
@@ -424,8 +429,8 @@ i {
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   border-radius: var(--card-border-radius);
-  margin: 0 10px;
-  min-width: 130px;
+  margin: 0 12px;
+  min-width: 134px;
   flex-shrink: 0;
 }
 .today-group__time {

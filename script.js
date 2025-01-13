@@ -1,3 +1,6 @@
+const appContainer = document.querySelector('.weather-app__inner')
+const welcomeForm = document.querySelector('.search-group__form--welcome')
+const welcomeInput = document.querySelector('.search-group__field--welcome')
 const cityInput = document.querySelector('#city');
 const switchBtn = document.querySelector('.switcher__switch');
 const cityName = document.querySelector('.search-group__city');
@@ -14,7 +17,17 @@ const prevBtn = document.querySelector('.btn--prev')
 const nextBtn = document.querySelector('.btn--next')
 
 
-let metricMeasurementSystem = true; // флаг состояния для переключения системы измерения
+appContainer.style.display = 'none'
+
+
+let metricMeasurementSystem = localStorage.getItem('metricMeasurementSystem') ? JSON.parse(localStorage.getItem('metricMeasurementSystem')) : true; // флаг состояния для переключения системы измерения
+
+
+switcherOption.textContent = metricMeasurementSystem ? `me` : `im`; // устанавливаем текст системы измерения в зависимости от состояния флага
+
+
+switchBtn.style.animation = metricMeasurementSystem ? `toggleOff var(--animation-duration) linear forwards` : `toggleOn var(--animation-duration) linear forwards`; // устанавливаем анимацию(начально положение переключателя) в зависимости от состояния флага
+
 
 let currentSlide = 0; // переменная для хранения текущего слайда
 
@@ -123,6 +136,10 @@ async function getData(cityValue){
         const dataObj = await response.json();
 
         await fillEntities(dataObj);
+
+        welcomeForm.style.display = 'none'
+        welcomeInput.value = '';  // сделать очистку поля ввода при последующем запросе
+        appContainer.style.display = 'flex'
 
     } catch (error) {
         console.error('Fetch error:', error);
@@ -243,7 +260,7 @@ function updateSlider(){
     const slideWidth = document.querySelector('.today-group__item').offsetWidth; // получаем ширину слайда которая равна ширине элемента списка
     const todayGroupList = document.querySelector('.today-group__list'); // получаем список элементов слайдера
     
-    todayGroupList.style.transform = `translateX(-${(slideWidth + 10) * currentSlide}px)` // перемещаем список на длину элемента слайда умноженную на текущий слайд + смещение
+    todayGroupList.style.transform = `translateX(-${(slideWidth + 30) * currentSlide}px)` // перемещаем список на длину элемента слайда умноженную на текущий слайд + смещение
 }
 
 
@@ -306,17 +323,19 @@ function toggleMeasurementSystem(e){
 
     clearPreviousResult()
 
-    if(metricMeasurementSystem && (e.target === switchBtn || e.target.closest('.switcher__option'))){
-        switchBtn.style.animation = `toggleOn var(--animation-duration) linear forwards`;
-        switcherOption.textContent = `im`;
-        metricMeasurementSystem = false;
-        localStorage.setItem('metricMeasurementSystem', metricMeasurementSystem)
-    } else {
-        switchBtn.style.animation = `toggleOff var(--animation-duration) linear forwards`;
-        switcherOption.textContent = `me`;
-        metricMeasurementSystem = true;
-        localStorage.setItem('metricMeasurementSystem', metricMeasurementSystem)
-    }
+    if(e.target === switchBtn || e.target.closest('.switcher__option')){
+        if(metricMeasurementSystem){
+            switchBtn.style.animation = `toggleOn var(--animation-duration) linear forwards`;
+            switcherOption.textContent = `im`;
+            metricMeasurementSystem = false;
+            localStorage.setItem('metricMeasurementSystem', metricMeasurementSystem)
+        } else{
+            switchBtn.style.animation = `toggleOff var(--animation-duration) linear forwards`;
+            switcherOption.textContent = `me`;
+            metricMeasurementSystem = true;
+            localStorage.setItem('metricMeasurementSystem', metricMeasurementSystem)
+        }
+    } 
 
     getData(cityInput.value)
 }
@@ -347,14 +366,14 @@ prevBtn.addEventListener('click', () => {
     if(currentSlide > 0){
         currentSlide--;
     } else {
-        currentSlide = document.querySelectorAll('.today-group__item').length - 1; // Возвращаемся к последнему элементу
+        currentSlide = document.querySelectorAll('.today-group__item').length - 3; // Возвращаемся к последнему элементу
     }
     updateSlider();
 })
 
 
 nextBtn.addEventListener('click', () => {
-    if(currentSlide < document.querySelectorAll('.today-group__item').length - 1){
+    if(currentSlide < document.querySelectorAll('.today-group__item').length - 3){
         currentSlide++;
     } else {
         currentSlide = 0; // Возвращаемся к первому элементу
