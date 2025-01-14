@@ -5,3 +5,8 @@
     padding-inline: var(--container-padding-x);
     padding-block: var(--container-padding-y);
 }
+
+// помогает скрыть нужные для CEO, но не нужные для пользователя, элементы 
+.visually-hidden{ 
+    @include visually-hidden;
+} 

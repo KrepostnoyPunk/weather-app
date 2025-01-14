@@ -1,6 +1,6 @@
 const appContainer = document.querySelector('.weather-app__inner')
 const welcomeForm = document.querySelector('.search-group__form--welcome')
-const welcomeInput = document.querySelector('.search-group__field--welcome')
+const welcomeInput = document.querySelector('#welcome-input')
 const cityInput = document.querySelector('#city');
 const switchBtn = document.querySelector('.switcher__switch');
 const cityName = document.querySelector('.search-group__city');
@@ -30,6 +30,9 @@ switchBtn.style.animation = metricMeasurementSystem ? `toggleOff var(--animation
 
 
 let currentSlide = 0; // переменная для хранения текущего слайда
+
+
+let isWelcomeFormHidden = false // флаг для скрытия формы приветствия
 
 
 async function getLocation(){
@@ -137,12 +140,19 @@ async function getData(cityValue){
 
         await fillEntities(dataObj);
 
-        welcomeForm.style.display = 'none'
-        welcomeInput.value = '';  // сделать очистку поля ввода при последующем запросе
+        if (!isWelcomeFormHidden) {
+            welcomeForm.style.display = 'none';
+            isWelcomeFormHidden = true;  // устанавливаем флаг, чтобы скрыть форму приветствия
+        }
+        welcomeInput.value = '';  // очистка поля ввода при последующем запросе
         appContainer.style.display = 'flex'
 
     } catch (error) {
         console.error('Fetch error:', error);
+        clearPreviousResult()
+        appContainer.style.display = 'none';
+        welcomeForm.style.display = 'flex';
+        isWelcomeFormHidden = false;
     } finally {
         preloaderEl.style.display = 'none';
     }
@@ -351,7 +361,19 @@ document.addEventListener('submit', e => {
     e.preventDefault()
 
     clearPreviousResult()
-    getData(cityInput.value)
+    if(isWelcomeFormHidden){
+        if(cityInput.value){
+            getData(cityInput.value)
+        } else{
+            clearPreviousResult()
+            appContainer.style.display = 'none';
+            welcomeForm.style.display = 'flex';
+            isWelcomeFormHidden = false;
+        }
+    } else{
+        getData(welcomeInput.value)
+        cityInput.value = welcomeInput.value
+    }
 })
 
 

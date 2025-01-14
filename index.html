@@ -3,121 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thunderstrike</title>
+    <title>Thunderstrike - Weather App</title>
+    <meta name="description" content="Thunderstrike is a weather app that provides accurate weather forecasts up to 2 days and current weather conditions.">
+    <meta name="keywords" content="weather, weather app, weather forecast, current weather, Thunderstrike, forecast">
+    <meta name="author" content="KrepostnoyPunk">
     <link rel="icon" href="./assets/icons/label.png">
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
-    <div class="preloader"></div>
-
-    <div class="weather-app container">
-        <form class="search-group__form search-group__form--welcome">
-            <input type="text" id="city" class="search-group__field search-group__field--welcome" placeholder="Search city">
-            <button class="search-group__btn btn btn--search">
-                <i class="fa-solid fa-magnifying-glass fa-xs"></i>
-            </button>
-        </form>
-        <div class="weather-app__inner ">
-            <!-- search-group -->
-            <div class="weather-app__search-group search-group">
-                <form class="search-group__form">
-                    <input type="text" id="city" class="search-group__field" placeholder="Search city">
-                    <button class="search-group__btn btn btn--search">
-                        <i class="fa-solid fa-magnifying-glass fa-xs"></i>
-                    </button>
-                </form>
-                <img src="#" 
-                alt="#" class="search-group__weather-img weather-img weather-img--current"
-                width="120"
-                height="120"
-                >
-                <div class="search-group__forecast">
-                    <div class="search-group__current">
-                        <address class="search-group__location">
-                             <p class="search-group__city">
-                                <i class="fa-solid fa-location-arrow"></i> Tokyo
-                             </p>
-                        </address>
-                        <p class="search-group__temperature">
-                            -6 °C
-                        </p>
-                        <p class="search-group__date"></p>
-                    </div>
-                    <div class="search-group__future-forecast future-forecast">
-                        <h3 class="future-forecast__title">
-                            Next 2 Days Forecast:
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <!-- today-group -->
-            <div class="weather-app__today-group today-group">
-                <div class="today-group__forecast">
-                    <div class="today-group__top">
-                        <h2 class="today-group__title part-title">Today's Forecast</h2>
-                        <!-- switcher -->
-                        <div class="switcher">
-                            <input type="checkbox" name="switcher__checkbox" id="switcher__checkbox" class="switcher__input">
-                            <label for="switcher__checkbox" class="switcher__wrapper" title="Measurement system, metric/imperial">
-                                <div class="switcher__switch" tabindex="1">
-                                    <p class="switcher__option switcher__option--first"></p>
-                                </div>
-                            </label>
+    <header>
+        <h1 class="visually-hidden">Thunderstrike - Weather App</h1>
+    </header>
+    <main class="container">
+        <div class="preloader"></div>
+        <div class="weather-app">
+            <form class="search-group__form search-group__form--welcome">
+                <input type="text" id="welcome-input" class="search-group__field search-group__field--welcome" placeholder="Search city">
+                <button class="search-group__btn btn btn--search">
+                    <i class="fa-solid fa-magnifying-glass fa-xs"></i>
+                </button>
+            </form>
+            <div class="weather-app__inner ">
+                <!-- search-group -->
+                <section class="weather-app__search-group search-group">
+                    <form class="search-group__form">
+                        <input type="text" id="city" class="search-group__field" placeholder="Search city">
+                        <button class="search-group__btn btn btn--search">
+                            <i class="fa-solid fa-magnifying-glass fa-xs"></i>
+                        </button>
+                    </form>
+                    <img src="#" 
+                    alt="#" class="search-group__weather-img weather-img weather-img--current"
+                    width="120"
+                    height="120"
+                    >
+                    <div class="search-group__forecast">
+                        <div class="search-group__current">
+                            <address class="search-group__location">
+                                <p class="search-group__city">
+                                    <i class="fa-solid fa-location-arrow"></i> Tokyo
+                                </p>
+                            </address>
+                            <p class="search-group__temperature">
+                                -6 °C
+                            </p>
+                            <p class="search-group__date"></p>
+                        </div>
+                        <div class="search-group__future-forecast future-forecast">
+                            <h3 class="future-forecast__title">
+                                Next 2 Days Forecast:
+                            </h3>
                         </div>
                     </div>
-                    <div class="today-group__slider">
-                        <button class="today-group__prev-btn btn--prev">
-                        <i class="fa-solid fa-angle-left fa-xl"></i>
-                        </button>
-                        <div class="today-group__list-wrapper"></div>
-                        <button class="today-group__next-btn btn--next">
-                            <i class="fa-solid fa-angle-right fa-xl"></i>
-                        </button>
+                </section>
+                <!-- today-group -->
+                <section class="weather-app__today-group today-group">
+                    <div class="today-group__forecast">
+                        <div class="today-group__top">
+                            <h2 class="today-group__title part-title">Today's Forecast</h2>
+                            <!-- switcher -->
+                            <div class="switcher">
+                                <input type="checkbox" name="switcher__checkbox" id="switcher__checkbox" class="switcher__input">
+                                <label for="switcher__checkbox" class="switcher__wrapper" title="Measurement system, metric/imperial">
+                                    <div class="switcher__switch" tabindex="1">
+                                        <p class="switcher__option switcher__option--first"></p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="today-group__slider">
+                            <button class="today-group__prev-btn btn--prev">
+                            <i class="fa-solid fa-angle-left fa-xl"></i>
+                            </button>
+                            <div class="today-group__list-wrapper"></div>
+                            <button class="today-group__next-btn btn--next">
+                                <i class="fa-solid fa-angle-right fa-xl"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="today-group__highlights">
-                    <h2 class="today-group__title">Today's Highlights</h2>
-                    <ul class="today-group__additional-data additional-data">
-                        <li>
-                            <ul class="additional-data__list">
-                                <li class="additional-data__item additional-data__item--uv">
-                                    UV Index - 0 
-                                </li>
-                                <li class="additional-data__item additional-data__item--moon-phase">
-                                    Moon Phase - Waning Crescent
-                                </li>
-                                <li class="additional-data__item additional-data__item--sunrise">
-                                    Sunrise - 5:18 AM
-                                </li>
-                                <li class="additional-data__item additional-data__item--sunset">
-                                    Sunset - 18:44 PM
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <ul class="additional-data__list">
-                                <li class="additional-data__item additional-data__item--humidity">
-                                    Humidity - 61.4%
-                                </li>
-                                <li class="additional-data__item additional-data__item--visibility">
-                                    Visibility - 7 
-                                </li>
-                                <li class="additional-data__item additional-data__item--wind-speed">
-                                    Wind Speed - 7 Km/h
-                                </li>
-                                <li class="additional-data__item additional-data__item--pressure">
-                                    Pressure - 760 mmHg
-                                </li>
-                                
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="today-group__highlights">
+                        <h2 class="today-group__title">Today's Highlights</h2>
+                        <ul class="today-group__additional-data additional-data">
+                            <li>
+                                <ul class="additional-data__list">
+                                    <li class="additional-data__item additional-data__item--uv">
+                                        UV Index - 0 
+                                    </li>
+                                    <li class="additional-data__item additional-data__item--moon-phase">
+                                        Moon Phase - Waning Crescent
+                                    </li>
+                                    <li class="additional-data__item additional-data__item--sunrise">
+                                        Sunrise - 5:18 AM
+                                    </li>
+                                    <li class="additional-data__item additional-data__item--sunset">
+                                        Sunset - 18:44 PM
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul class="additional-data__list">
+                                    <li class="additional-data__item additional-data__item--humidity">
+                                        Humidity - 61.4%
+                                    </li>
+                                    <li class="additional-data__item additional-data__item--visibility">
+                                        Visibility - 7 
+                                    </li>
+                                    <li class="additional-data__item additional-data__item--wind-speed">
+                                        Wind Speed - 7 Km/h
+                                    </li>
+                                    <li class="additional-data__item additional-data__item--pressure">
+                                        Pressure - 760 mmHg
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
             </div>
         </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
